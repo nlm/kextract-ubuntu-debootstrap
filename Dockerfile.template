@@ -1,0 +1,19 @@
+FROM multiarch/ubuntu-debootstrap:%%DEB_ARCH%%-%%DI_DIST%%
+
+RUN ( echo "deb %%UBU_MIRROR%% %%DI_DIST%% main" \
+    && echo "deb %%UBU_MIRROR%% %%DI_DIST%%-updates main" \
+    && echo "deb %%UBU_MIRROR%% %%DI_DIST%%-security main" ) \
+  > /etc/apt/sources.list
+
+RUN apt-get -q update \
+    && apt-get --no-install-recommends -y install tar xz-utils rsync linux-image-generic
+
+COPY /assets/extract.sh /extract.sh
+RUN chmod +x /extract.sh
+ENTRYPOINT ["/extract.sh"]
+
+ARG WORKDIR=/workdir
+ENV WORKDIR=$WORKDIR
+ENV DEBIAN_FRONTEND=noninteractive
+VOLUME $WORKDIR
+WORKDIR $WORKDIR
