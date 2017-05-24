@@ -9,7 +9,7 @@ script:
 before_deploy:
 - sudo chmod 755 ./workdir
 - sudo chmod 644 ./workdir/*
-- sudo chown -R travis:travis ./dist
+- sudo chown -R travis:travis ./workdir
 - ls -al ./workdir/
 deploy:
   provider: releases
