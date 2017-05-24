@@ -1,0 +1,23 @@
+sudo: required
+services:
+- docker
+language: bash
+install:
+- mkdir workdir
+script:
+- "./travis.sh"
+before_deploy:
+- sudo chmod 755 ./workdir
+- sudo chmod 644 ./workdir/*
+- sudo chown -R travis:travis ./dist
+- ls -al ./workdir/
+deploy:
+  provider: releases
+  api_key:
+    secure: RW8obsVVIFOqpZuMy2IL+751bxYyHnFiUqZJiJaTOhsEBj6nv0YQHSA2p1viggAon7rD0+QAYFlzwPpNzafE4PDWBneLat6JsB6Q2/RYbeiciOZJJFwYcXbyaYinXcvxA8RtWs9w8w4uPKQkld0efKAOCaD4fcfziyI4NfUxb9pG1VvDTuT53xNXoeMZgKe1+dPtx21LvoJbEqiyOFkF5W6PZgEQcau5W9bryuUFbmd/ZJL+eA+dvmk+uaKYms8ILuhqMuDpiGwlIP5WgfNpICFsQaxCsvL8cCnV7vb7TX0LNgk8LI8By+Spdoyp2cdZz76Bs0aWRX2wfwt34KlDKLSyhdoF2/QzpQRAOWK/STAakiF022Wd5KA5jLUxYC/0hhri7vJMOTFM53ro/Yu+QLHd7BYR9ceDMapxRrAvCuS9zdFyM60OPQlwJWmKZVnxx2ELVkJBv+JIQU/IOw7X0nMxzXwfZjtx02FIqC6zbdrBBwp0MtnG+dM9YIORxjiXuBd7jpA+ivnE8OvNedaBSfYaLZNwLfuIJNe97MzwsxAEBSE+HARJvGVi5rPuKkHWkvDHAZAK14Lix/r7Xf4VffTmO6YMlQ7lY+oDzog/mZcFrLlQOrzpv1DJm6ii7jMydaRh6TAEd5i80ElmdJD3ZDVQeJbBnbGubUAeAQmgy0g=
+  on:
+    repo: nlm/kextract-ubuntu-debootstrap
+    tags: on
+  skip_cleanup: true
+  file_glob: true
+  file: "./workdir/*"

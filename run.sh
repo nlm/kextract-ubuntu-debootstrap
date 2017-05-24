@@ -1,7 +1,7 @@
 #!/bin/sh -eu
 usage()
 {
-    echo "usage: $0 amd64|arm64|armel|armhf|i386|powerpc|ppc64el"
+    echo "usage: $0 amd64|arm64|armel|armhf|i386|powerpc|ppc64el DIST"
 }
 
 if [ "$#" -ne 1 -a "$#" -ne 2 ]; then

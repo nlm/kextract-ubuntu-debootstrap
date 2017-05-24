@@ -6,7 +6,9 @@ RUN ( echo "deb %%UBU_MIRROR%% %%DI_DIST%% main" \
   > /etc/apt/sources.list
 
 RUN apt-get -q update \
-    && apt-get --no-install-recommends -y install tar xz-utils rsync linux-image-generic
+    && apt-get --no-install-recommends -y install tar xz-utils rsync initramfs-tools \
+    && rm -f /etc/kernel/postinst.d/* \
+    && apt-get --no-install-recommends -y install tar xz-utils linux-image-generic
 
 COPY /assets/extract.sh /extract.sh
 RUN chmod +x /extract.sh
