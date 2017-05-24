@@ -25,8 +25,11 @@ UBUNTU_ARCH="${1}"
 UBUNTU_DIST="${2}"
 
 kernel_version=$(ls /lib/modules)
+echo "Archiving kernel..."
 cp "/boot/vmlinuz-${kernel_version}" "/workdir/vmlinuz-${UBUNTU_ARCH}-${UBUNTU_DIST}"
 rm -f "/workdir/modules-${UBUNTU_ARCH}-${UBUNTU_DIST}.tar.gz"
-tar -C "/lib/modules" -zcvf "/workdir/modules-${UBUNTU_ARCH}-${UBUNTU_DIST}.tar.gz" "${kernel_version}"
+echo "Archiving modules..."
+tar -C "/lib/modules" -zcf "/workdir/modules-${UBUNTU_ARCH}-${UBUNTU_DIST}.tar.gz" "${kernel_version}"
 rm -f "/workdir/firmware-${UBUNTU_ARCH}-${UBUNTU_DIST}.tar.gz"
-tar -C "/lib/firmware" -zcvf "/workdir/firmware-${UBUNTU_ARCH}-${UBUNTU_DIST}.tar.gz" "${kernel_version}"
+echo "Archiving firmware..."
+tar -C "/lib/firmware" -zcf "/workdir/firmware-${UBUNTU_ARCH}-${UBUNTU_DIST}.tar.gz" "${kernel_version}"
